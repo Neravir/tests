@@ -1,0 +1,40 @@
+class Trie(object):
+   def __init__(self):
+      self.head = {}
+
+   #insert word
+   def insert(self, word):
+      current = self.head
+      for ch in word:
+         if ch not in current:
+            current[ch] = {}
+         current = current[ch]
+      # mark the end of the word
+      current['#']= True
+   
+   #search whole word
+   def search(self, word):
+      current = self.head
+      for ch in word:
+         if ch not in current:
+            return False
+         current = current[ch]
+      #if no # present then false
+      return '#' in current
+   
+   #search prefix
+   def startsWith(self, prefix):
+      current = self.head
+      for ch in prefix:
+         if ch not in current:
+            return False
+         current = current[ch]
+      return True
+
+obj = Trie()
+obj.insert("python")
+print(obj.search("python"))
+print(obj.search("pyth"))
+print(obj.startsWith("pyth"))
+obj.insert("pyth")
+print(obj.search("pyth"))
